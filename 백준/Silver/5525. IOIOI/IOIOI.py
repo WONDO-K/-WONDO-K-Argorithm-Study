@@ -18,8 +18,13 @@ for i in range(limit):
         pn+='O'
 
 cnt=0
+
+
 for i in range(start,m-limit+1):
-    if s[i:i+limit] == pn:
-        cnt+=1
+    # 첫 문자는 I로 시작해야하고 반드시 뒤에 O가 오기 때문에
+    # I뒤에 O가 아닌 경우는 확인하지 않는다.
+    if s[i]=='I' and s[i+1]=='O':
+        if s[i:i+limit] == pn:
+            cnt+=1
 
 print(cnt)

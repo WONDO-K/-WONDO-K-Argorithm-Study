@@ -1,25 +1,52 @@
 import sys
-from itertools import permutations
 
 input = sys.stdin.readline
 
 n = int(input())
-per = list(permutations([i for i in range(1,10)],3))
 
-for _ in range(n):
-    num,s,b = map(int,input().split())
-    num = list(map(int,str(num)))
-    temp=[]
-    for target in per:
-        score = [0, 0]
-        for i, check in enumerate(num):
-            if target[i] == check:
-                score[0]+=1
-            else:
-                if check in target:
-                    score[1]+=1
-        if s == score[0] and b == score[1]:
-            temp.append(target)
-    per = temp
+arr = [list(map(str,input().split())) for _ in range(n)]
 
-print(len(per))
+
+ans = 0
+
+for i in range(1,10):
+    for j in range(1,10):
+        for k in range(1,10):
+
+
+            if (i==j or j==k or k==i):
+                continue
+
+            cnt = 0
+
+            for target in arr:
+                num = list(target[0])
+                strike = int(target[1])
+                ball = int(target[2])
+
+                ball_cnt = 0
+                strike_cnt = 0
+
+                if (i == int(num[0])):
+                    strike_cnt+=1
+                if (j == int(num[1])):
+                    strike_cnt+=1
+                if(k == int(num[2])):
+                    strike_cnt+=1
+
+                if (i == int(num[1]) or i == int(num[2])):
+                    ball_cnt+=1
+                if (j == int(num[0]) or j == int(num[2])):
+                    ball_cnt+=1
+                if (k == int(num[0]) or k == int(num[1])):
+                    ball_cnt+=1
+
+                if (ball != ball_cnt):
+                    break
+                if (strike != strike_cnt):
+                    break
+                cnt+=1
+            if cnt==n:
+                ans+=1
+
+print(ans)

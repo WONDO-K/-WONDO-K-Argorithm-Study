@@ -5,35 +5,36 @@ input = sys.stdin.readline
 dx = [0,0,-1,1]
 dy = [-1,1,0,0]
 
-y,x = map(int,input().split())
-arr = [list(input().rstrip()) for _ in range(y)]
+def bfs(y,x):
+    dist = 0
+    visit[y][x]=1
+    que = deque()
+    que.append([y,x]) 
+
+    while que:
+        y, x = que.popleft()
+
+        for i in range(4):
+            ny = y + dy[i]
+            nx = x + dx[i]
+
+            if 0<=ny<m and 0<=nx<n:
+                if arr[ny][nx] == 'L' and visit[ny][nx]==0:
+                    visit[ny][nx] = visit[y][x]+1 # dist 배열을 따로 만들지 않고 visit를 그대로 활용
+                    que.append([ny,nx])
+                    dist = visit[y][x]+1
+    return dist-1 # 시작점 제외 (다음칸으로 한칸 이동시 소요시간이 1시간 즉, 시작점은 카운트하지 않는다.)
+
+m,n = map(int,input().split())
+arr = [list(input().rstrip()) for _ in range(m)]
 
 
 max_dist = 0
 
-for j in range(y):
-    for i in range(x):
+for j in range(m):
+    for i in range(n):
         if arr[j][i]=='L':
-            visit = [[0 for _ in range(x)] for _ in range(y)] # 매 노드마다 거리 측정을 위한 새로운 visit이 필요하다.
-            dist = [[0 for _ in range(x)] for _ in range(y)]
-
-            que = deque()
-            que.append([j,i]) 
-            visit[j][i]=1
-
-            while que:
-                ey, ex = que.popleft()
-
-                for i in range(4):
-                    ny = ey + dy[i]
-                    nx = ex + dx[i]
-
-                    if 0<=ny<y and 0<=nx<x:
-                        if arr[ny][nx] == 'L' and visit[ny][nx] == 0:
-                            visit[ny][nx] = 1
-                            dist[ny][nx] = dist[ey][ex]+1 # 현재 있는 위치에서 거리를 1 더한게 다음 위치의 거리값
-                            max_dist = max(max_dist,dist[ny][nx])
-                            que.append([ny,nx])
-
+            visit = [[0 for _ in range(n)] for _ in range(m)] # 매 노드마다 거리 측정을 위한 새로운 visit이 필요하다.
+            max_dist = max(max_dist,bfs(j,i))
 
 print(max_dist)

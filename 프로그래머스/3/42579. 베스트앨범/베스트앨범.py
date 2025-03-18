@@ -1,10 +1,9 @@
 def solution(genre_array, play_array):
 
-    temp = set(genre_array)
     dic = dict()
     result=[]
     
-    for i in temp:
+    for i in genre_array:
         dic[i] = [0,[]]
 
     for i in range(len(genre_array)):

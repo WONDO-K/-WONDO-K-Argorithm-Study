@@ -1,47 +1,40 @@
 import java.util.*;
-import java.lang.*;
 import java.io.*;
 
-// The main method must be in a class named "Main".
 class Main {
-    public static void main(String[] args)  throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); //입력
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out)); // 출력
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out)); 
 
         int n = Integer.parseInt(br.readLine());
         Stack<Integer> stack = new Stack<>();
 
-        for (int i=0;i<n;i++){
-            String line = br.readLine(); // 한줄 입력 받기
-            StringTokenizer st = new StringTokenizer(line);
-
+        while (n-- > 0) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
             int cmd = Integer.parseInt(st.nextToken());
 
-            if (cmd==1){
-                int num = Integer.parseInt(st.nextToken()); // 다음 숫자 가져오기
-                stack.push(num);
-            } else if (cmd==2){
-                if (!stack.isEmpty()) {
-                    bw.write(stack.pop() + "\n");
-                } else{
-                    bw.write("-1\n");
-                }
-            } else if (cmd==3){
-                bw.write(stack.size() + "\n");
-            } else if (cmd==4){
-                bw.write((stack.isEmpty() ? 1 : 0) + "\n");
-            } else if (cmd==5) {
-                if (!stack.isEmpty()){
-                     bw.write(stack.peek() + "\n");
-                } else{
-                    bw.write("-1\n");
-                }
+            switch (cmd) {
+                case 1:
+                    stack.push(Integer.parseInt(st.nextToken()));
+                    break;
+                case 2:
+                    bw.write((stack.isEmpty() ? -1 : stack.pop()) + "\n");
+                    break;
+                case 3:
+                    bw.write(stack.size() + "\n");
+                    break;
+                case 4:
+                    bw.write((stack.isEmpty() ? 1 : 0) + "\n");
+                    break;
+                case 5:
+                    bw.write((stack.isEmpty() ? -1 : stack.peek()) + "\n");
+                    break;
             }
-            
         }
+
         bw.flush();
         bw.close();
         br.close();
-        
     }
 }

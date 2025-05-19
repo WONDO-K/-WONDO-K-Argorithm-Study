@@ -1,41 +1,43 @@
 import sys
-import math
 import heapq
 
 input = sys.stdin.readline
-INF = math.inf
 
-def sol(start):
-    q = []
-    heapq.heappush(q,(0,start))
+def djk(start):
+
+    que = []
+    heapq.heappush(que,(0,start))
     distance[start]=0
 
-    while q:
-        dist, now = heapq.heappop(q)
+
+    while que:
+        # 우선순위 큐를 이용해서, 거리를 보고 정렬한다.
+        dist, now = heapq.heappop(que)
 
         if dist > distance[now]:
             continue
-        
-        # 0번 다음위치, 1번 거리비용
-        for next in arr[now]:
-            cost = dist+next[1]
 
-            if cost < distance[next[0]]:
-                distance[next[0]] = cost
-                heapq.heappush(q,(cost,next[0]))
+        for nxt, value in arr[now]:
+            if distance[now]+value < distance[nxt]:
+                distance[nxt] = distance[now] + value
+                heapq.heappush(que,(distance[nxt],nxt))
 
-s,e= map(int,input().split())
-k = int(input())
-arr = [[] for _ in range(s+1)]
-distance = [INF]*(s+1)
 
-for _ in range(e):
-    u,v,w = map(int,input().split())
-    arr[u].append((v,w))
+n,m = map(int,input().split())
+start = int(input())
 
-sol(k)
-for i in range(1, s + 1):
-    if distance[i] == INF:
+arr = [[]for _ in range(n+1)]
+
+for _ in range(m):
+    s,e,v = map(int,input().split())
+    arr[s].append((e,v))
+
+
+distance = [1e9] * (n+1)  
+djk(start)
+
+for i in range(1,n+1):
+    if distance[i] == 1e9:
         print("INF")
     else:
-        print(distance[i]) 
+        print(distance[i])

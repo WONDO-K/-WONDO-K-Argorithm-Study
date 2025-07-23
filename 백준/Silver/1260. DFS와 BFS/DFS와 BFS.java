@@ -1,9 +1,6 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.lang.*;
+import java.io.*;
 
 class Main {
 
@@ -14,7 +11,7 @@ class Main {
     static int v;
     static int cnt;
 
-    static Queue<Integer> que = new LinkedList<>();
+    static Queue<Integer> que = new ArrayDeque<>();
 
 
     public static void BFS(int start){

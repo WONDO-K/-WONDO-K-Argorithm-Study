@@ -13,7 +13,7 @@ def find(x):
 
 def union(a,b):
     ra,rb = find(a),find(b) # 대표자 번호를 가져옴
-    if ra != rb: # 대표자 번호가 서로 다르다면
+    if ra != rb: # 대표자 번호가 서로 다르다면 ex) 0,1,1 의 경우 a,b가 같아서 합쳐줄 필요가 없다.
         parent[rb] = ra # 대표자 번호를 한쪽으로 몰아준다.
 
 

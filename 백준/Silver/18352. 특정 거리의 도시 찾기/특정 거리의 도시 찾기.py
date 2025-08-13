@@ -18,7 +18,7 @@ def dijkstra(start):
         for nxt in maps[now]:
             nxt_cnt = nxt[1]+cnt # 1번 인덱스에 가중치 담겨있음 꺼내서 지금까지의 이동거리 cnt와 더함 -> 다음 노드까지 예상 이동거리
 
-            if cnt < dist[nxt[0]]: # 현재 cnt가 다음 노드까지 최소거리보다 작다면 교체
+            if nxt_cnt < dist[nxt[0]]: # 현재 cnt가 다음 노드까지 최소거리보다 작다면 교체
                 dist[nxt[0]] = nxt_cnt
                 heapq.heappush(que,(nxt_cnt,nxt[0]))
 

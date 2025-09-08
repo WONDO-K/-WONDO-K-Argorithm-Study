@@ -43,9 +43,6 @@ def solution(new_id):
         after_id += after_id[-1]
     return after_id
 
-id_list = ["...!@BaT#*..y.abcdefghijklm", "z-+.^.", "=.=", "123_.def", "abcdefghijklmn.p", "BBBBBBBB"]
 
-for new_id in id_list:
-    print(solution(new_id))
 
 

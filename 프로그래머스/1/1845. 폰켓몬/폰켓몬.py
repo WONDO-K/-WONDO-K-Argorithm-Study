@@ -1,9 +1,13 @@
 def solution(nums):
+    
+    # 포켓몬 중복을 제외한 종류의 수가 아무리 많아도 nums/2 를 초과해서 가져가지 못함
+    # 제한 수가 포켓몬 종류의 수 보다 적던, 같던, 크던 결국 둘 중 적은 수가 정답이 된다.
 
-    pocket = list(set(nums))
-    limit = len((nums))//2
-
-    if len(pocket)>= limit:
-        return min(len(pocket),limit)
-    else:
-        return len(pocket)
+    # 중복 제거 후 3종류가 있다고 가정하고 limit가 2일 때 
+    # 3종류가 있지만 가져갈 수 있는 포켓몬이 2마리이기 때문에 3 종류 중 최대 2 종류만 가져갈 수 있음
+    
+    # 2종류가 있다고 가정하고 limit가 3일 때
+    # 3마리까지 가져갈 수 있지만 홍박사가 가지고 있는 포켓몬의 종류는 2가지 뿐ㄴ임
+    
+    # 즉, 둘 중 더 작은 수를 가져갈 수 있음
+    return min(len(nums)//2, len(set(nums)))

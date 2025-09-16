@@ -1,24 +1,24 @@
 from collections import deque
 
-dx = [0,0,-1,1]
-dy = [-1,1,0,0]
+dx = [-1,1,0,0]
+dy = [0,0,-1,1]
 
 def solution(maps):
-    n = len(maps)
-    m = len(maps[0])
+    n,m = len(maps), len(maps[0])
+
     que = deque()
-    que.append((0,0,1))
+    que.append((0,0))
+
+
     while que:
-        x,y,cnt = que.popleft()
-        if x == n-1 and y == m-1:
-            return cnt
+        x,y = que.popleft()
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
 
-            if 0<=nx<n and 0<=ny<m: # 범위 초과하지  않고
-                if maps[nx][ny] == 1: # 아직 방문하지 않았다면
-                    maps[nx][ny] = cnt
-                    que.append((nx,ny,cnt+1))
-                    maps[x][y] = 0 # 현재 위치 벽으로 만들어줘야 역행 안함
-    return -1
+
+            if 0<=nx<n and 0<=ny<m and maps[nx][ny]==1:
+                maps[nx][ny]+=maps[x][y]# 횟수 증가
+                que.append((nx,ny))
+
+    return maps[n-1][m-1] if maps[n-1][m-1]!=1 else -1

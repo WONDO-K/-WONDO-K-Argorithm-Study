@@ -20,19 +20,14 @@ def solution(park, routes):
 
 
     for command in routes:
-        origin_x, origin_y = x, y
-        command = command.split()
-        way, block = command[0],int(command[1])
-        dx,dy = vector[way][0],vector[way][1]
+        way, block = command.split()
+        dx,dy = vector[way]
 
-        for _ in range(block):
-            nx = x + dx
-            ny = y + dy
-            if 0 <= nx < n and 0 <= ny < m and park[nx][ny] != 'X':
-                x, y = nx, ny
-            else:
-                x,y = origin_x,origin_y
+        for cnt in range(1,int(block)+1):
+            nx = x + dx * cnt
+            ny = y + dy * cnt
+            if not (0 <= nx < n and 0 <= ny < m) or park[nx][ny] == 'X':
                 break
+        else:
+            x,y = nx,ny
     return [x,y]
-
-

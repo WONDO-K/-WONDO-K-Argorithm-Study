@@ -4,7 +4,7 @@ def solution(progresses, speeds):
     answer = []
     que = deque([])
     for work, speed in zip(progresses,speeds):
-        day = (100 - work + speed -1)//speed
+        day = (100 - work + speed-1)//speed
         que.append(day)
         
     prev = que.popleft()
